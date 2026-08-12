@@ -28,6 +28,9 @@ public abstract class Persona {
     public int getEdad(){
         return edad;
     }
+    public void setTelefono(int telefono){
+        this.telefono=telefono;
+    }
     public abstract void tipo();
 
 
