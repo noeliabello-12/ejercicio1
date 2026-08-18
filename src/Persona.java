@@ -30,6 +30,7 @@ public abstract class Persona {
     }
     public void setTelefono(int telefono){
         this.telefono=telefono;
+        System.out.println("Se ha modificado el telefono");
     }
     public abstract void tipo();
 

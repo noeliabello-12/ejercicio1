@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Instituto {
 
@@ -38,6 +39,15 @@ public class Instituto {
         return mail;
     }
 
+    public Alumno buscarAlumnos(String dni){
+        for (Persona a:alumnos){
+           if (Objects.equals(a.getDni(), dni)){
+            return (Alumno) a;
+           }
+        }
+        return null;
+    }
+
     public List<Persona> getAlumnos() {
         return alumnos;
     }
@@ -65,7 +75,12 @@ public class Instituto {
                this.datoAula.add(datoAula);
     }
     public void newAlumno(Alumno alumno) {
-        alumnos.add(alumno);
+        boolean exito= alumnos.add(alumno);
+       if (exito) {
+           System.out.println("Se ha añadido el alumno " + alumno.getNombre());
+       }else {
+           System.out.println("No se ha podido añadir");
+       }
     }
 
     public void newTrabajador(Trabajador trabajador) {
@@ -73,7 +88,12 @@ public class Instituto {
     }
 
     public void removeAlumno(Alumno alumno) {
-        alumnos.remove(alumno);
+        boolean exito= alumnos.remove(alumno);
+       if (exito){
+           System.out.println("Se ha eliminado el alumno de la base de datos");
+       }else {
+           System.out.println("No se ha podido eliminar");
+       }
     }
 
     public void removeTrabajadores(Trabajador trabajador) {
