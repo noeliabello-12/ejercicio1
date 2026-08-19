@@ -1,4 +1,5 @@
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -96,6 +97,82 @@ public class Menu {
             System.out.println("6. Listar secretaria");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    menuDireccion();
+                    break;
+                case 5: listarProfesor();
+                    break;
+                case 6:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void menuDireccion() {
+        int direccion = -1;
+        while (direccion != 0) {
+            System.out.println("1. Ver Director");
+            System.out.println("2. Cambiar DIrector");
+            direccion = sc.nextInt();
+            switch (direccion) {
+                case 1:
+                    System.out.println("El director es: ");
+                    Trabajador director = insti.getDirector();
+                    System.out.println(director);
+                    break;
+                case 2:
+                    System.out.println("Introduzca el dni del nuevo Director");
+                    String dni = sc.next();
+                    Trabajador t = insti.buscarTrabajador(dni);
+                    if (t == null) {
+                        System.out.println("EL dni no esta en la base de datos");
+                    } else {
+                        insti.cambiarDirector(t);
+                    }
+            }
+
+        }
+
+    }
+
+    public void listarProfesor() {
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("1. Buscar Profesor");
+            System.out.println("2. Listar todos");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    String dni = sc.next();
+                    Trabajador trab = insti.buscarTrabajador(dni);
+                    if (trab == null || trab.getPuesto() != Docente.PROFESOR) {
+                        System.out.println("No existe profesor con ese dni");
+                    } else {
+                        System.out.println(trab);
+                    }
+                    break;
+                case 2:
+                    List<Persona> t = insti.getTrabajadores();
+                    for (Persona trabajador : t) {
+                        if (((Trabajador) trabajador).getPuesto() == Docente.PROFESOR) {
+                            System.out.println(trabajador);
+
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -161,7 +238,7 @@ public class Menu {
             System.out.println("1. Eliminar");
             System.out.println("2. Cancelar");
             int decision = sc.nextInt();
-            if (decision==1){
+            if (decision == 1) {
                 insti.removeAlumno(alumno);
             }
 

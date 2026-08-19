@@ -83,10 +83,6 @@ public class Instituto {
        }
     }
 
-    public void newTrabajador(Trabajador trabajador) {
-        trabajadores.add(trabajador);
-    }
-
     public void removeAlumno(Alumno alumno) {
         boolean exito= alumnos.remove(alumno);
        if (exito){
@@ -95,9 +91,26 @@ public class Instituto {
            System.out.println("No se ha podido eliminar");
        }
     }
+    public void newTrabajador(Trabajador trabajador) {
+        trabajadores.add(trabajador);
+    }
 
     public void removeTrabajadores(Trabajador trabajador) {
         trabajadores.remove(trabajador);
+    }
+    public Trabajador buscarTrabajador(String dni){
+        for (Persona tr:trabajadores){
+
+            if (Objects.equals(dni, tr.getDni())){
+                return (Trabajador) tr;
+            }
+        }return null;
+    }
+    public void cambiarDirector(Trabajador tr){
+        Trabajador antiguo = getDirector();
+        antiguo.setPuesto(Docente.PROFESOR);
+        tr.setPuesto(Docente.DIRECTOR);
+        System.out.println("El nuevo director es: "+tr.getNombre()+" "+tr.getApellidos());
     }
     public Trabajador getDirector() {
         for (Persona t : trabajadores) {
