@@ -77,7 +77,7 @@ public class Menu {
 
         System.out.println("Introduzca el dni del alumno a modificar");
         String dni = sc.next();
-        System.out.println("Introduzca el telefono que busca");
+        System.out.println("Introduzca el nuevo telefono ");
         int telefono = sc.nextInt();
         for (Persona p : insti.getAlumnos()) {
             if (Objects.equals(p.getDni(), dni)) {
@@ -99,99 +99,26 @@ public class Menu {
             opcion = sc.nextInt();
             switch (opcion) {
                 case 1:
+                    anhadirTrabajador();
                     break;
                 case 2:
+                    modificarTrabajador();
                     break;
                 case 3:
+                    eliminarTrabajador();
                     break;
                 case 4:
                     menuDireccion();
                     break;
-                case 5: listarProfesor();
+                case 5:
+                    listarProfesor();
                     break;
                 case 6:
+                    listarSecretaria();
                     break;
                 default:
                     break;
             }
-        }
-    }
-
-    public void menuDireccion() {
-        int direccion = -1;
-        while (direccion != 0) {
-            System.out.println("1. Ver Director");
-            System.out.println("2. Cambiar DIrector");
-            direccion = sc.nextInt();
-            switch (direccion) {
-                case 1:
-                    System.out.println("El director es: ");
-                    Trabajador director = insti.getDirector();
-                    System.out.println(director);
-                    break;
-                case 2:
-                    System.out.println("Introduzca el dni del nuevo Director");
-                    String dni = sc.next();
-                    Trabajador t = insti.buscarTrabajador(dni);
-                    if (t == null) {
-                        System.out.println("EL dni no esta en la base de datos");
-                    } else {
-                        insti.cambiarDirector(t);
-                    }
-            }
-
-        }
-
-    }
-
-    public void listarProfesor() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("1. Buscar Profesor");
-            System.out.println("2. Listar todos");
-            System.out.println("0. Atras");
-            opcion = sc.nextInt();
-            switch (opcion) {
-                case 1:
-                    String dni = sc.next();
-                    Trabajador trab = insti.buscarTrabajador(dni);
-                    if (trab == null || trab.getPuesto() != Docente.PROFESOR) {
-                        System.out.println("No existe profesor con ese dni");
-                    } else {
-                        System.out.println(trab);
-                    }
-                    break;
-                case 2:
-                    List<Persona> t = insti.getTrabajadores();
-                    for (Persona trabajador : t) {
-                        if (((Trabajador) trabajador).getPuesto() == Docente.PROFESOR) {
-                            System.out.println(trabajador);
-
-                        }
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    public void gestionAulas() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("1. Lista de aulas");
-            System.out.println("2. Gestionar aula");
-            System.out.println("0. Atras");
-            opcion = sc.nextInt();
-        }
-    }
-
-    public void gestionInstituto() {
-        int opcion = -1;
-        while (opcion != 0) {
-            System.out.println("1. Modificar datos");
-            System.out.println("0. Atras");
-            opcion = sc.nextInt();
         }
     }
 
@@ -244,4 +171,193 @@ public class Menu {
 
         }
     }
+
+    public void anhadirTrabajador() {
+        System.out.println("Introduzca Nombre");
+        String nombre = sc.next();
+        System.out.println("introduzca Apellidos");
+        String apellidos = sc.next();
+        System.out.println("Introduzca dni");
+        String dni = sc.next();
+        System.out.println("Introduzca telefono");
+        int telefono = sc.nextInt();
+        System.out.println("Introduzca edad");
+        int edad = sc.nextInt();
+        System.out.println("Introduzca los años de docencia");
+        int anhosDOcencia = sc.nextInt();
+        System.out.println("Introduzca el puesto");
+        System.out.println("1. Profesor");
+        System.out.println("2. Secretario/a");
+        System.out.println("3. Jefe de estudios");
+        int opcion = sc.nextInt();
+        Docente docente = switch (opcion) {
+            case 1 -> Docente.PROFESOR;
+            case 2 -> Docente.SECRETARIA;
+            default -> Docente.JEFE_ESTUDIOS;
+
+        };
+        Trabajador trb = new Trabajador(nombre, apellidos, dni, telefono, edad, anhosDOcencia, docente);
+        insti.newTrabajador(trb);
+    }
+
+    public void modificarTrabajador() {
+        System.out.println("Introduzca el dni del trabajador a modificar");
+        String dni = sc.next();
+        Trabajador tr = insti.buscarTrabajador(dni);
+        if (tr == null) {
+            System.out.println("No se ha encontrado");
+        } else {
+            System.out.println("Introduzca el nuevo telefono ");
+            int telefono = sc.nextInt();
+
+            tr.setTelefono(telefono);
+        }
+    }
+
+    public void eliminarTrabajador() {
+        System.out.println("Introduzca dni");
+        String dni = sc.next();
+        Trabajador trabajador = insti.buscarTrabajador(dni);
+        if (trabajador == null) {
+            System.out.println("No se ha encontrado");
+        } else {
+            System.out.println("Se va eliminar el siguiente trabajador");
+            System.out.println(trabajador);
+            System.out.println("¿Esta seguro de eliminar el trabajador?");
+            System.out.println("1. Eliminar");
+            System.out.println("2. Cancelar");
+            int decision = sc.nextInt();
+            if (decision == 1) {
+                insti.removeTrabajadores(trabajador);
+            }
+        }
+    }
+
+    public void menuDireccion() {
+        int direccion = -1;
+        while (direccion != 0) {
+            System.out.println("1. Ver Director");
+            System.out.println("2. Cambiar DIrector");
+            direccion = sc.nextInt();
+            switch (direccion) {
+                case 1:
+                    System.out.println("El director es: ");
+                    Trabajador director = insti.getDirector();
+                    System.out.println(director);
+                    break;
+                case 2:
+                    System.out.println("Introduzca el dni del nuevo Director");
+                    String dni = sc.next();
+                    Trabajador t = insti.buscarTrabajador(dni);
+                    if (t == null) {
+                        System.out.println("EL dni no esta en la base de datos");
+                    } else {
+                        insti.cambiarDirector(t);
+                    }
+            }
+
+        }
+
+    }
+
+    public void listarProfesor() {
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("1. Buscar Profesor");
+            System.out.println("2. Listar todos");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    System.out.println("Introduzca dni");
+                    String dni = sc.next();
+                    Trabajador trab = insti.buscarTrabajador(dni);
+                    if (trab == null || trab.getPuesto() != Docente.PROFESOR) {
+                        System.out.println("No existe profesor con ese dni");
+                    } else {
+                        System.out.println(trab);
+                    }
+                    break;
+                case 2:
+                    List<Persona> t = insti.getTrabajadores();
+                    for (Persona trabajador : t) {
+                        if (((Trabajador) trabajador).getPuesto() == Docente.PROFESOR) {
+                            System.out.println(trabajador);
+
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void listarSecretaria() {
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("1. Buscar secretario/a");
+            System.out.println("2. Listar todo");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    String dni = sc.next();
+                    Trabajador t = insti.buscarTrabajador(dni);
+                    if (t == null || t.getPuesto() != Docente.SECRETARIA) {
+                        System.out.println("No existe dni para ese secretario/a");
+                    } else {
+                        System.out.println(t);
+                    }
+                    break;
+                case 2:
+                    List<Persona> tr = insti.getTrabajadores();
+                    for (Persona trabajador : tr) {
+                        if (((Trabajador) trabajador).getPuesto() == Docente.SECRETARIA) {
+                            System.out.println(trabajador);
+
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void gestionAulas() {
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("1. Lista de aulas");
+            System.out.println("2. Gestionar aula");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+        }
+    }
+    public void listaAula(){
+        int opcion = -1;
+         while (opcion!=0){
+             System.out.println("1. Ver aula");
+             System.out.println("2. listar las aulas");
+             System.out.println("0. Atras");
+             switch (opcion){
+                 case 1:
+                     break;
+                 case 2:
+                     break;
+                 default:
+                     break;
+             }
+         }
+    }
+    public void gestionInstituto() {
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("1. Modificar datos");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+        }
+    }
+
+
 }
