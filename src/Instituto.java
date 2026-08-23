@@ -78,7 +78,7 @@ public class Instituto {
     public DatosAula buscarAula(String aula){
         for (Aula a:aulas){
 
-        }
+        }return null;
     }
     public void newDatos(DatosAula datoAula) {
         this.datoAula.add(datoAula);
