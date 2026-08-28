@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Instituto insti = Datos.pruebaInstituto();
+        Datos datos = new Datos();
+        Instituto insti = datos.insti;
         Menu menu = new Menu(insti);
         Scanner sc = new Scanner(System.in);
         int opcion = -1;

@@ -2,6 +2,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Datos {
+    Instituto insti;
+
+    public Datos(){
+        Instituto insti = new Instituto("San clemente","Santiago",999999999,"prueba@prueba.com");
+        List<Trabajador> profesores = Datos.profesoresPruebas();
+        List<Alumno> alumnos = Datos.alumnosPrueba();
+        List<Aula> aulas = Datos.aulasPruebas();
+        List<Trabajador> secretaria = secretariaPrueba();
+        List<Trabajador> direccion = direccionPrueba();
+        for (Alumno a:alumnos){
+            insti.newAlumno(a);
+        }
+        for(Trabajador t:profesores){
+            insti.newTrabajador(t);
+        }
+        for (Aula aul:aulas){
+            insti.newAulas(aul);
+        }
+        for(Trabajador t:secretaria){
+            insti.newTrabajador(t);
+        }
+        for(Trabajador t:direccion){
+            insti.newTrabajador(t);
+        }
+        this.insti = insti;
+        createDatosAula();
+    }
+
     static List<String> nombres = List.of(
             "Ana", "Carlos", "Sofía", "Diego", "María",
             "Juan", "Lucía", "Mateo", "Elena", "Santiago",
@@ -54,31 +82,7 @@ public class Datos {
         }
       return aulas;
     }
-    public static Instituto pruebaInstituto(){
-        Instituto insti = new Instituto("San clemente","Santiago",999999999,"prueba@prueba.com");
-        List<Trabajador> profesores = Datos.profesoresPruebas();
-        List<Alumno> alumnos = Datos.alumnosPrueba();
-        List<Aula> aulas = Datos.aulasPruebas();
-        List<Trabajador> secretaria = secretariaPrueba();
-        List<Trabajador> direccion = direccionPrueba();
-        for (Alumno a:alumnos){
-            insti.newAlumno(a);
-        }
-        for(Trabajador t:profesores){
-            insti.newTrabajador(t);
-        }
-        for (Aula aul:aulas){
-            insti.newAulas(aul);
-        }
-        for(Trabajador t:secretaria){
-            insti.newTrabajador(t);
-        }
-        for(Trabajador t:direccion){
-            insti.newTrabajador(t);
-        }
 
-        return insti;
-    }
     public static int newTelefono(){
         String telefono = "6";
         for(int i=0;i<8;i++){
@@ -158,9 +162,14 @@ public class Datos {
         }
         return direccion;
     }
+
     public static void printLista(List<Persona> personas){
         for(Persona p:personas){
             System.out.println(p);
         }
+    }
+
+    public static DatosAula createDatosAula(){
+        return null;
     }
 }
