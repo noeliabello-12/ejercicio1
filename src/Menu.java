@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -329,26 +330,112 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Lista de aulas");
-            System.out.println("2. Gestionar aula");
+            System.out.println("2. Gestionar datos");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            switch (opcion){
+                case 1: listaAula();
+                    break;
+                case 2: gestionarAula();
+                    break;
+                default:
+                    break;
+            }
         }
     }
-    public void listaAula(){
+
+    public void listaAula() {
         int opcion = -1;
-         while (opcion!=0){
-             System.out.println("1. Ver aula");
-             System.out.println("2. listar las aulas");
-             System.out.println("0. Atras");
-             switch (opcion){
-                 case 1:
-                     break;
-                 case 2:
-                     break;
-                 default:
-                     break;
-             }
-         }
+        while (opcion != 0) {
+            System.out.println("1. Ver aula");
+            System.out.println("2. listar las aulas");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    System.out.println("¿De que aula desea buscar los datos?");
+                    String aula = sc.next();
+                    DatosAula datos = insti.buscarDatosAula(aula);
+                    if (datos == null) {
+                        System.out.println("El aula no existe");
+                    } else {
+                        System.out.println(datos);
+                    }
+                    break;
+                case 2:
+                    for (DatosAula d : insti.getDatosAula()) {
+                        System.out.println(d);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void gestionarAula() {
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("1.Modificar aula");
+            System.out.println("2.Añadir aula");
+            System.out.println("3.Eliminar aula");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    System.out.println("¿Que aula desea buscar?");
+                    String dato = sc.next();
+                    DatosAula a = insti.buscarDatosAula(dato);
+                    if (a == null){
+                        System.out.println("No se ha encontrado el aula");
+                    } else {
+                        System.out.println(a);
+                    }
+                    break;
+                case 2: anhadirAula();
+                    break;
+                case 3:
+                    System.out.println("¿Que aula desea eliminar?");
+                    String eliminar = sc.next();
+                    if (eliminar == null){
+                        System.out.println("Se ha eliminado");
+                    }else {
+                        System.out.println(eliminar);
+                    }
+
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    public void anhadirAula (){
+        Aula aula ;
+        Persona tutor;
+        System.out.println("Introduzca el aula que es");
+        String buscarAula = sc.next();
+        aula = insti.buscarAula(buscarAula);
+        System.out.println("Introduzca el dni del tutor del aula");
+        String buscarTutor = sc.next();
+        tutor = insti.buscarTrabajador(buscarTutor);
+        System.out.println("Introduzca los alumnos.");
+        System.out.println("Introduzca 0 para parar");
+        String opcion= "";
+        DatosAula d = new DatosAula(tutor,aula);
+        while (!opcion.equals("0")){
+
+            System.out.println("Introduzca dni");
+            opcion = sc.next();
+            Alumno al=insti.buscarAlumnos(opcion);
+            if (al==null){
+                System.out.println("El alumno no existe");
+            }else {
+                d.newAlumno(al);
+            }
+
+        }
+        insti.newDatos(d);
     }
     public void gestionInstituto() {
         int opcion = -1;

@@ -21,6 +21,7 @@ public class Instituto {
         this.alumnos = new ArrayList<>();
         this.trabajadores = new ArrayList<>();
         this.aulas = new ArrayList<>();
+        this.datoAula= new ArrayList<>();
     }
 
     public String getNombre() {
@@ -75,10 +76,28 @@ public class Instituto {
     public void newAulas(Aula aula) {
         aulas.add(aula);
     }
-    public DatosAula buscarAula(String aula){
-        for (Aula a:aulas){
-
+    public Aula buscarAula (String aula){
+        for (Aula l:aulas){
+            if (aula.equals(l.getCurso()+l.getLetra())){
+                return l;
+            }
         }return null;
+    }
+    public DatosAula buscarDatosAula(String aula) {
+        for (DatosAula a : datoAula) {
+            if (aula.equals(a.getAula().getCurso() + a.getAula().getLetra())) {
+            return a;
+            }
+        }
+        return null;
+    }
+    public void eliminarAula(DatosAula aula){
+      boolean exito =  datoAula.remove(aula);
+      if (exito){
+          System.out.println("Se ha añadido aula"+aula.getAula());
+      }else {
+          System.out.println("No se ha añadido");
+      }
     }
     public void newDatos(DatosAula datoAula) {
         this.datoAula.add(datoAula);
@@ -113,7 +132,7 @@ public class Instituto {
 
     public void removeTrabajadores(Trabajador trabajador) {
         boolean exito = trabajadores.remove(trabajador);
-        if (exito){
+        if (exito) {
             System.out.println("Se ha borrado trabajador");
         } else {
             System.out.println("No se ha borrado");
