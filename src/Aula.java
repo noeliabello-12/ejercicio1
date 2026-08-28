@@ -38,6 +38,6 @@ public class Aula {
 
     @Override
     public String toString(){
-        return curso+" "+letra+" "+capacidad+"(Alumnos)";
+        return curso+letra+" "+capacidad+"(pupitres)";
     }
 }

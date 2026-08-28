@@ -47,7 +47,7 @@ public class DatosAula {
     @Override
     public String toString() {
 
-        return "Aula: " + aula +
+        return "Aula: " + aula.getCurso() + aula.getLetra() + " ("+ this.alumnos.size() +" alumnos)" +
                 "\nProfesor: " + profesor.getNombre() + " " + profesor.getApellidos() +
                 "\nLista: " + listaAlumnos();
     }

@@ -14,6 +14,7 @@ public class Main {
             menu.bienvenida();
             System.out.println("Seleccione una opcion ");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     menu.gestionAlumno();

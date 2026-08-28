@@ -37,6 +37,7 @@ public class Menu {
             System.out.println("4. Listar alumnos");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     anhadirAlumno();
@@ -98,6 +99,7 @@ public class Menu {
             System.out.println("6. Listar secretaria");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     anhadirTrabajador();
@@ -127,9 +129,10 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Buscar alumno");
-            System.out.println("2. Listar todo");
+            System.out.println("2. Listar todo ("+insti.getAlumnos().size()+")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     System.out.println("Introduzca dni para buscar ");
@@ -144,6 +147,7 @@ public class Menu {
                 case 2:
                     for (Persona l : insti.getAlumnos()) {
                         System.out.println(l);
+                        Util.separatorList();
                     }
                     break;
                 default:
@@ -238,8 +242,10 @@ public class Menu {
         int direccion = -1;
         while (direccion != 0) {
             System.out.println("1. Ver Director");
-            System.out.println("2. Cambiar DIrector");
+            System.out.println("2. Cambiar Director");
+            System.out.println("0. Atras");
             direccion = sc.nextInt();
+            Util.separador();
             switch (direccion) {
                 case 1:
                     System.out.println("El director es: ");
@@ -265,9 +271,10 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Buscar Profesor");
-            System.out.println("2. Listar todos");
+            System.out.println("2. Listar todos ("+insti.getTrabajadores().stream().filter(profesor -> ((Trabajador)profesor).getPuesto() == Docente.PROFESOR).toList().size()+")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     System.out.println("Introduzca dni");
@@ -284,7 +291,7 @@ public class Menu {
                     for (Persona trabajador : t) {
                         if (((Trabajador) trabajador).getPuesto() == Docente.PROFESOR) {
                             System.out.println(trabajador);
-
+                            Util.separatorList();
                         }
                     }
                     break;
@@ -298,9 +305,10 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Buscar secretario/a");
-            System.out.println("2. Listar todo");
+            System.out.println("2. Listar todo ("+insti.getTrabajadores().stream().filter(profesor -> ((Trabajador)profesor).getPuesto() == Docente.SECRETARIA).toList().size()+")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     String dni = sc.next();
@@ -309,6 +317,7 @@ public class Menu {
                         System.out.println("No existe dni para ese secretario/a");
                     } else {
                         System.out.println(t);
+
                     }
                     break;
                 case 2:
@@ -316,7 +325,7 @@ public class Menu {
                     for (Persona trabajador : tr) {
                         if (((Trabajador) trabajador).getPuesto() == Docente.SECRETARIA) {
                             System.out.println(trabajador);
-
+                            Util.separatorList();
                         }
                     }
                     break;
@@ -333,6 +342,7 @@ public class Menu {
             System.out.println("2. Gestionar datos");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion){
                 case 1: listaAula();
                     break;
@@ -348,9 +358,10 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Ver aula");
-            System.out.println("2. listar las aulas");
+            System.out.println("2. Listar todas ("+insti.getDatosAula().size()+")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     System.out.println("¿De que aula desea buscar los datos?");
@@ -365,6 +376,7 @@ public class Menu {
                 case 2:
                     for (DatosAula d : insti.getDatosAula()) {
                         System.out.println(d);
+                        Util.separatorList();
                     }
                     break;
                 default:
@@ -381,6 +393,7 @@ public class Menu {
             System.out.println("3.Eliminar aula");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
+            Util.separador();
             switch (opcion) {
                 case 1:
                     System.out.println("¿Que aula desea buscar?");
