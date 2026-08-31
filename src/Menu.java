@@ -129,7 +129,7 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Buscar alumno");
-            System.out.println("2. Listar todo ("+insti.getAlumnos().size()+")");
+            System.out.println("2. Listar todo (" + insti.getAlumnos().size() + ")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
@@ -271,7 +271,7 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Buscar Profesor");
-            System.out.println("2. Listar todos ("+insti.getTrabajadores().stream().filter(profesor -> ((Trabajador)profesor).getPuesto() == Docente.PROFESOR).toList().size()+")");
+            System.out.println("2. Listar todos (" + insti.getTrabajadores().stream().filter(profesor -> ((Trabajador) profesor).getPuesto() == Docente.PROFESOR).toList().size() + ")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
@@ -305,7 +305,7 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Buscar secretario/a");
-            System.out.println("2. Listar todo ("+insti.getTrabajadores().stream().filter(profesor -> ((Trabajador)profesor).getPuesto() == Docente.SECRETARIA).toList().size()+")");
+            System.out.println("2. Listar todo (" + insti.getTrabajadores().stream().filter(profesor -> ((Trabajador) profesor).getPuesto() == Docente.SECRETARIA).toList().size() + ")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
@@ -343,10 +343,12 @@ public class Menu {
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
-            switch (opcion){
-                case 1: listaAula();
+            switch (opcion) {
+                case 1:
+                    listaAula();
                     break;
-                case 2: gestionarAula();
+                case 2:
+                    gestionarAula();
                     break;
                 default:
                     break;
@@ -358,7 +360,7 @@ public class Menu {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Ver aula");
-            System.out.println("2. Listar todas ("+insti.getDatosAula().size()+")");
+            System.out.println("2. Listar todas (" + insti.getDatosAula().size() + ")");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
@@ -396,23 +398,24 @@ public class Menu {
             Util.separador();
             switch (opcion) {
                 case 1:
-                    System.out.println("¿Que aula desea buscar?");
+                    System.out.println("¿Que aula desea modificar?");
                     String dato = sc.next();
                     DatosAula a = insti.buscarDatosAula(dato);
-                    if (a == null){
+                    if (a == null) {
                         System.out.println("No se ha encontrado el aula");
                     } else {
-                        System.out.println(a);
+                        modificarAula(a);
                     }
                     break;
-                case 2: anhadirAula();
+                case 2:
+                    anhadirAula();
                     break;
                 case 3:
                     System.out.println("¿Que aula desea eliminar?");
                     String eliminar = sc.next();
-                    if (eliminar == null){
+                    if (eliminar == null) {
                         System.out.println("Se ha eliminado");
-                    }else {
+                    } else {
                         System.out.println(eliminar);
                     }
 
@@ -423,8 +426,9 @@ public class Menu {
             }
         }
     }
-    public void anhadirAula (){
-        Aula aula ;
+
+    public void anhadirAula() {
+        Aula aula;
         Persona tutor;
         System.out.println("Introduzca el aula que es");
         String buscarAula = sc.next();
@@ -434,22 +438,98 @@ public class Menu {
         tutor = insti.buscarTrabajador(buscarTutor);
         System.out.println("Introduzca los alumnos.");
         System.out.println("Introduzca 0 para parar");
-        String opcion= "";
-        DatosAula d = new DatosAula(tutor,aula);
-        while (!opcion.equals("0")){
+        String opcion = "";
+        DatosAula d = new DatosAula(tutor, aula);
+        while (!opcion.equals("0")) {
 
             System.out.println("Introduzca dni");
             opcion = sc.next();
-            Alumno al=insti.buscarAlumnos(opcion);
-            if (al==null){
+            Alumno al = insti.buscarAlumnos(opcion);
+            if (al == null) {
                 System.out.println("El alumno no existe");
-            }else {
+            } else {
                 d.newAlumno(al);
             }
 
         }
         insti.newDatos(d);
     }
+
+    public void modificarAula(DatosAula a) {
+
+        int opcion = -1;
+        while (opcion != 0) {
+            System.out.println("Aula: " + a.getAula().getCurso() + a.getAula().getLetra());
+            System.out.println("1.Modificar tutor");
+            System.out.println("2.Añadir alumno");
+            System.out.println("3.Eliminar alumno");
+            System.out.println("4.Ver detalles");
+            System.out.println("0. Atras");
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 1:
+                    System.out.println("¿Que dni tiene el nuevo tutor?");
+                    String dni = sc.next();
+                    Trabajador tutor = insti.buscarTrabajador(dni);
+                    if (tutor == null) {
+                        System.out.println("No existe un profesor con ese dni");
+                    } else {
+                        DatosAula aulas2 = insti.buscarTutorEnAula(tutor);
+                        if (aulas2 == null) {
+                            a.setProfesor(tutor);
+                        } else {
+                            System.out.println("El profesor ya tiene una tutoria asignada");
+                        }
+
+                    }
+                    break;
+                case 2:
+                    System.out.println("Introduce el nuevo dni del alumno nuevo");
+                    String dni1 = sc.next();
+                    Alumno newAlumno = insti.buscarAlumnos(dni1);
+                    if (newAlumno == null) {
+                        System.out.println("No hay alumnos con ese dni");
+                    } else {
+                        DatosAula aula = insti.buscarAulaDeAlumno(newAlumno);
+                        if (aula == null) {
+                            a.newAlumno(newAlumno);
+                        } else {
+                            System.out.println("El alumno esta registrado en el aula " + aula.getAula().getCurso() + aula.getAula().getLetra());
+                            System.out.println("1. Trasladar alumno");
+                            System.out.println("2. Cancelar");
+                            int opcion1 = sc.nextInt();
+                            switch (opcion1) {
+                                case 1:
+                                    aula.removeAlumno(newAlumno);
+                                    a.newAlumno(newAlumno);
+                                    break;
+                                default:
+                                    System.out.println("Operacion cancelada");
+                                    break;
+                            }
+                        }
+
+                    }
+                    break;
+                case 3:
+                    System.out.println("¿que alumno quieres eliminar?");
+                    String dni2 = sc.next();
+                    Alumno removeAlumno = insti.buscarAlumnos(dni2);
+                    if (removeAlumno == null) {
+                        System.out.println("No existe el alumno con ese dni");
+                    } else {
+                        a.removeAlumno(removeAlumno);
+                    }
+                    break;
+                case 4:
+                    System.out.println(a);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public void gestionInstituto() {
         int opcion = -1;
         while (opcion != 0) {

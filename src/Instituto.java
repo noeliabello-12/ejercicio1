@@ -91,6 +91,24 @@ public class Instituto {
         }
         return null;
     }
+    public DatosAula buscarAulaDeAlumno(Alumno alumno){
+        for (DatosAula buscar:datoAula){
+            for (Alumno al1:buscar.getAlumnos()){
+                if (alumno==al1){
+                 return buscar;
+                }
+            }
+        }
+        return null;
+    }
+    public DatosAula buscarTutorEnAula (Trabajador tutor){
+        for (DatosAula t:datoAula){
+            if (tutor==t.getProfesor()){
+                return t;
+            }
+        }
+        return null;
+    }
     public void eliminarAula(DatosAula aula){
       boolean exito =  datoAula.remove(aula);
       if (exito){

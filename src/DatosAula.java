@@ -15,7 +15,7 @@ public class DatosAula {
     private String listaAlumnos() {
         String lista = "";
         for (Alumno l : alumnos) {
-            lista += "\n" + l.getNombre() + " " + l.getApellidos();
+            lista += "\n" + l.getNombre() + " " + l.getApellidos()+ " ("+l.getDni()+")";
         }
         return lista;
     }
@@ -33,15 +33,24 @@ public class DatosAula {
     }
 
     public void setProfesor(Persona profesor) {
+        System.out.println("El profesor "+this.profesor.getNombre() +" "+this.profesor.getApellidos()+" ya no es el tutor de la clase");
         this.profesor = profesor;
+        System.out.println("El nuevo tutor es "+this.profesor.getNombre() +" "+this.profesor.getApellidos());
+
     }
 
     public void newAlumno(Alumno alumno) {
         alumnos.add(alumno);
+        System.out.println("Se ha agregado nuevo alumno "+alumno.getNombre()+" "+alumno.getApellidos());
     }
 
     public void removeAlumno(Alumno alumno) {
-        alumnos.remove(alumno);
+        boolean exito = alumnos.remove(alumno);
+        if (exito){
+            System.out.println("Se ha eliminado con exito");
+        }else {
+            System.out.println("El alumno no esta en la lista");
+        }
     }
 
     @Override
