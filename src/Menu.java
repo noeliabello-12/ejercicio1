@@ -35,6 +35,7 @@ public class Menu {
             System.out.println("2. Modificar alumno");
             System.out.println("3. Eliminar alumno");
             System.out.println("4. Listar alumnos");
+            System.out.println("5. Ver alumno");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
@@ -50,6 +51,9 @@ public class Menu {
                     break;
                 case 4:
                     listarAlumnos();
+                    break;
+                case 5:
+                    verAlumno();
                     break;
                 default:
                     break;
@@ -75,6 +79,27 @@ public class Menu {
 
     }
 
+    public void verAlumno() {
+        System.out.println("¿que dni tiene ese alumno?");
+        String dni = sc.next();
+        Alumno alumno = insti.buscarAlumnos(dni);
+
+        if (alumno == null) {
+            System.out.println("Ese alumno no existe por ese dni");
+        } else {
+            System.out.println(alumno);
+            DatosAula aula = insti.buscarAulaDeAlumno(alumno);
+            if (aula == null) {
+                System.out.println("El alumno no tiene aula asignada");
+            } else {
+
+                System.out.println("El aula del alumno: " + aula.getAula().getCurso() + aula.getAula().getLetra());
+                System.out.println("El tutor del alumno: " + aula.getProfesor().getNombre() + " " + aula.getProfesor().getApellidos());
+            }
+
+        }
+    }
+
     public void modificarAlumno() {
 
         System.out.println("Introduzca el dni del alumno a modificar");
@@ -97,6 +122,7 @@ public class Menu {
             System.out.println("4. Direccion");
             System.out.println("5. Listar profesores");
             System.out.println("6. Listar secretaria");
+            System.out.println("7. Buscar profesor");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
@@ -118,6 +144,9 @@ public class Menu {
                     break;
                 case 6:
                     listarSecretaria();
+                    break;
+                case 7:
+                    buscarProfesor();
                     break;
                 default:
                     break;
@@ -335,11 +364,30 @@ public class Menu {
         }
     }
 
+    public void buscarProfesor() {
+        System.out.println("¿que dni tiene el profesor?");
+        String dni = sc.next();
+        Trabajador profesor = insti.buscarTrabajador(dni);
+        if (profesor == null) {
+            System.out.println("No existe profesor");
+        } else {
+            System.out.println(profesor);
+            DatosAula aula = insti.buscarTutorEnAula(profesor);
+            if (aula == null) {
+                System.out.println("El profesor no es tutor de niguna clase");
+            } else {
+                System.out.println("El profesor es tutor del aula es " + aula.getAula().getCurso() + aula.getAula().getLetra());
+            }
+
+        }
+    }
+
     public void gestionAulas() {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("1. Lista de aulas");
             System.out.println("2. Gestionar datos");
+            System.out.println("3. Buscar aula");
             System.out.println("0. Atras");
             opcion = sc.nextInt();
             Util.separador();
@@ -350,12 +398,24 @@ public class Menu {
                 case 2:
                     gestionarAula();
                     break;
+                case 3:
+                    buscarAula();
+                    break;
                 default:
                     break;
             }
         }
     }
-
+    public void buscarAula(){
+        System.out.println("¿que aula es?");
+        String aula1 = sc.next();
+        DatosAula aula = insti.buscarDatosAula(aula1);
+        if (aula==null){
+            System.out.println("No existe");
+        }else {
+            System.out.println("El tutor es "+aula.getProfesor().getNombre()+" "+aula.getProfesor().getApellidos());
+        }
+    }
     public void listaAula() {
         int opcion = -1;
         while (opcion != 0) {
